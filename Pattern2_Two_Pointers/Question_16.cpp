@@ -1,27 +1,33 @@
 // - Find Pair with Sum Closest to Zero (minimum absolute sum pair)
 
-# include <iostream>
-using namespace std;
+// Pattern 1 : Two Pointers ( Opposite ends + Optimization)
 
-void findPairWithClosestToZero(int arr[], int n) {
-    int left = 0, right = n - 1;
-    int minSum = INT_MAX;
-    int pairLeft = 0, pairRight = 0;
+int closestSumToZero(vector<int>& arr) {
+    sort(arr.begin(), arr.end());      // Sorting is required
+
+    int left = 0;                      // Smallest element
+    int right = arr.size() - 1;        // Largest element
+
+    int bestSum = INT_MAX;             // Stores sum closest to zero
 
     while (left < right) {
+
         int currentSum = arr[left] + arr[right];
-        if (abs(currentSum) < abs(minSum)) {
-            minSum = currentSum;
-            pairLeft = left;
-            pairRight = right;
+
+        // Update bestSum if this sum is closer to zero
+        if (abs(currentSum) < abs(bestSum)) {
+            bestSum = currentSum;
         }
 
+        // If sum is negative, move left to increase sum
         if (currentSum < 0) {
             left++;
-        } else {
+        }
+        // If sum is positive, move right to decrease sum
+        else {
             right--;
         }
     }
 
-    cout << "Pair with sum closest to zero: " << arr[pairLeft] << ", " << arr[pairRight] << endl;
+    return bestSum;
 }

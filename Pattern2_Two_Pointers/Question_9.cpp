@@ -1,34 +1,49 @@
 //  - Reverse an Array
 
-#include <iostream>
-#include <algorithm>
-using namespace std;
+// Pattern 1 : Two Pointers ( Opposite ends + Swapping)
 
-void Reverse_Array(int arr[],int n){
-    int start = 0;
-    int end = n-1;
-    while(start < end){
-        swap(arr[start],arr[end]);
-        start++;
-        end--;
+void reverseArray(vector<int>& arr) {
+    int left = 0;
+    int right = arr.size() - 1;
+
+    while (left < right) {
+        int temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
+
+        left++;
+        right--;
     }
 }
 
-int main(){
-    int n;
-    cout << " Enter the size of the array";
-    cin >> n;
 
-    int arr[n];
-    cout << "Enter " << n << " elements of the array : " << endl;
-    for(int i = 0; i < n; i++){
-        cin >> arr[i];
-    }
 
-    Reverse_Array(arr,n);
-    cout << "The reversed array is : ";
-    for(int i = 0; i < n; i++){
-        cout << arr[i] << " ";
-    }
-    return 0;
-}
+/*
+Swap / partition        → Opposite ends
+Sum / difference        → Same direction
+Count with duplicates   → Same direction + bulk count
+Optimize (min/max)      → Opposite ends, never stop early
+Remove / compress       → Read–Write
+Transform + reorder     → Opposite ends + merge
+*/
+
+
+/*
+STEP 1️⃣: Ask ONLY this question first
+❓ “What am I trying to DO?”
+
+There are only 4 possible answers in array problems:
+
+What the problem wants	Category
+Just check something	Validation
+Find if something exists	Matching
+Count how many	Counting
+Find best / max / min	Optimization
+*/
+
+/*opposite-end two pointers require sorted order.*/
+
+/*Two pointers need monotonic behavior.
+Unsorted arrays do not have it.*/
+
+/*When a sorted array allows predictable increase/decrease of a difference, use same-direction two pointers and stop on match.*/

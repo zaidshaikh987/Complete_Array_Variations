@@ -1,37 +1,31 @@
 // - Squares of a Sorted Array (merge negatives & positives)
 
-#include <iostream>
-using namespace std;
+// Pattern 0 : Two Pointers (Opposite Ends → Merge-like Overwrite)
 
-void sortedSquares(int arr[], int n) {
-    int result[n];
-    int left = 0, right = n - 1;
-    int pos = n - 1;  // position to fill in result (from back)
+vector<int> sortedSquares(vector<int>& arr) {
+    int n = arr.size();
 
-    // Merge squares of negative and positive parts
+    vector<int> result(n);          // Result array
+    int left = 0;                   // Pointer at start
+    int right = n - 1;              // Pointer at end
+    int pos = n - 1;                // Position to fill in result (from end)
+
     while (left <= right) {
-        if (abs(arr[left]) > abs(arr[right])) {
-            result[pos] = arr[left] * arr[left];
-            left++;
+
+        int leftSquare = arr[left] * arr[left];
+        int rightSquare = arr[right] * arr[right];
+
+        // Place the larger square at the current position
+        if (leftSquare > rightSquare) {
+            result[pos] = leftSquare;
+            left++;                 // Move left pointer inward
         } else {
-            result[pos] = arr[right] * arr[right];
-            right--;
+            result[pos] = rightSquare;
+            right--;                // Move right pointer inward
         }
-        pos--;
+
+        pos--;                      // Move result pointer backward
     }
 
-    cout << "Sorted squares: ";
-    for (int i = 0; i < n; i++) {
-        cout << result[i] << " ";
-    }
-    cout << endl;
-}
-
-int main() {
-    int arr[] = {-7, -3, 0, 2, 5};
-    int n = sizeof(arr) / sizeof(arr[0]);
-
-    sortedSquares(arr, n);
-
-    return 0;
+    return result;
 }

@@ -1,35 +1,31 @@
 // - Find a Pair with Given Difference k
 
-#include <iostream>
-#include <algorithm>
-using namespace std;
+//Pattern 2 : Two Pointers ( Same Direction – Difference)
 
-void findPairWithDifferenceK(int arr[], int n, int k) {
-    sort(arr, arr + n);
-    int left = 0, right = 1;
+bool findPairWithDifference(vector<int>& arr, int k) {
+    int left = 0;                      // Smaller element pointer
+    int right = 1;                     // Larger element pointer
 
-    while (right < n) {
+    while (right < arr.size()) {
+
+        // Make sure we are comparing two different indices
+        if (left == right) {
+            right++;
+            continue;
+        }
+
         int diff = arr[right] - arr[left];
+
         if (diff == k) {
-            cout << arr[left] << ", " << arr[right] << endl;
-            left++;
-            right++;
-        } else if (diff < k) {
-            right++;
-        } else { // diff > k
-            left++;
-            if (left == right) right++;
+            return true;               // Valid pair found
+        }
+        else if (diff < k) {
+            right++;                   // Need a larger difference
+        }
+        else {
+            left++;                    // Need a smaller difference
         }
     }
-}
 
-int main() {
-    int arr[] = {1, 5, 3, 4, 2};
-    int n = sizeof(arr) / sizeof(arr[0]);
-    int k = 2;
-
-    cout << "Pairs with difference " << k << ":\n";
-    findPairWithDifferenceK(arr, n, k);
-
-    return 0;
+    return false;                      // No valid pair exists
 }

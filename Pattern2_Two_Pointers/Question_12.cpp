@@ -1,30 +1,26 @@
 // - Remove Duplicates from a Sorted Array
 
-#include <iostream>
-using namespace std;
+// Pattern 0 : Two Pointers (Read & Write / Overwrite Technique)
 
-int removeDuplicates(int arr[], int n) {
-    if (n == 0 || n == 1) {
-        return n;
+int removeDuplicates(vector<int>& arr) {
+
+    // If array is empty, no unique elements
+    if (arr.size() == 0) {
+        return 0;
     }
-    int i = 0;
-    for (int j = 1; j < n; j++) {
-        if (arr[j] != arr[i]) {
-            i++;
-            arr[i] = arr[j];
+
+    int write = 0;   // Index of last unique element
+
+    // Start reading from second element
+    for (int read = 1; read < arr.size(); read++) {
+
+        // If current element is different from last unique one
+        if (arr[read] != arr[write]) {
+            write++;                     // Move write position
+            arr[write] = arr[read];     // Overwrite with new unique value
         }
     }
-    return i + 1;
-}
 
-int main() {
-    int arr[] = {1, 1, 2, 2, 3, 4, 4, 5};
-    int n = sizeof(arr) / sizeof(arr[0]);
-    int newLength = removeDuplicates(arr, n);
-    cout << "New length: " << newLength << endl;
-    cout << "Array without duplicates: ";
-    for (int i = 0; i < newLength; i++) {
-        cout << arr[i] << " ";
-    }
-    return 0;
+    // Number of unique elements
+    return write + 1;
 }

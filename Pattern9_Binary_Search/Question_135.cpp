@@ -1,0 +1,36 @@
+// - Standard Binary Search
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Returns the index of target in a sorted array, or -1 if not found.
+int binarySearch(vector<int>& nums, int target) {
+    int low = 0, high = nums.size() - 1;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (nums[mid] == target) {
+            return mid;
+        } else if (nums[mid] < target) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    return -1;
+}
+
+int main() {
+    vector<int> nums = {-1, 0, 3, 5, 9, 12};
+    int target = 9;
+    int result = binarySearch(nums, target);
+    
+    if (result != -1) {
+        cout << "Target " << target << " found at index " << result << endl;
+    } else {
+        cout << "Target " << target << " not found." << endl;
+    }
+    
+    return 0;
+}

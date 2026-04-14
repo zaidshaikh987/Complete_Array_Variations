@@ -1,25 +1,50 @@
-// - - Check if an Array is Sorted
+// Count Pairs with Given Sum (sorted array)
 
-#include <iostream>
-using namespace std;
+// Pattern 2 : Two Pointers ( Same Direction – Comparison + Duplicate Handling)
 
-bool isSorted(int arr[], int n) {
-    for (int i = 1; i < n; i++) {
-        if (arr[i] < arr[i - 1]) {
-            return false;
+int countPairsWithSum(vector<int>& arr, int k) {
+    int left = 0;
+    int right = arr.size() - 1;
+    int count = 0;
+
+    while (left < right) {
+
+        int sum = arr[left] + arr[right];
+
+        if (sum < k) {
+            left++;
+        }
+        else if (sum > k) {
+            right--;
+        }
+        else {
+            if (arr[left] != arr[right]) {
+
+                int leftValue = arr[left];
+                int rightValue = arr[right];
+
+                int leftCount = 0;
+                int rightCount = 0;
+
+                while (left < right && arr[left] == leftValue) {
+                    leftCount++;
+                    left++;
+                }
+
+                while (right >= left && arr[right] == rightValue) {
+                    rightCount++;
+                    right--;
+                }
+
+                count += leftCount * rightCount;
+            }
+            else {
+                int totalElements = right - left + 1;
+                count += (totalElements * (totalElements - 1)) / 2;
+                break;
+            }
         }
     }
-    return true;
-}
 
-int main() {
-    int arr[] = {1, 2, 3, 4, 5};
-    int n = sizeof(arr) / sizeof(arr[0]);
-    if (isSorted(arr, n)) {
-        cout << "Array is sorted" << endl;
-    } else {
-        cout << "Array is not sorted" << endl;
-    }
-    return 0;
+    return count;
 }
-
