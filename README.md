@@ -243,5 +243,6 @@ These problems often combine multiple patterns or require a unique insight.
  - Merge Two Sorted Arrays Without Extra Space
  - Count Inversions
  - Reverse Pairs
- - Find the Duplicate Number in an Array [1, n] of size n+1#   C o m p l e t e _ A r r a y _ V a r i a t i o n s  
+ - Find the Duplicate Number in an Array [1, n] of size n+1
+ 
  
